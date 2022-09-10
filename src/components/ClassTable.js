@@ -27,7 +27,9 @@ function renderProperties(
           return (
             <Fragment key={i}>
               {'  '.repeat(indent)}
-							{properties[property].includes('rgb') ? `${property}: ${transformedValue} /* ${RGBToHex(transformedValue)} */;` : `${property}: ${transformedValue};`}
+							{properties[property].includes('rgb')
+								? <span>{property}: {transformedValue} <span className="invisible group-hover:visible">{RGBToHex(transformedValue).toUpperCase()}</span></span>
+								: `${property}: ${transformedValue};`}
               {px && <span className="text-indigo-400"> {`/* ${px} */`}</span>}
               {'\n'}
             </Fragment>
@@ -138,7 +140,7 @@ export const ClassTable = memo(
                       <td
                         translate="no"
                         className={clsx(
-                          'py-2 pl-2 font-mono text-xs leading-6 text-indigo-600 whitespace-pre dark:text-indigo-300',
+                          'group py-2 pl-2 font-mono text-xs leading-6 text-indigo-600 whitespace-pre dark:text-indigo-300',
                           {
                             'border-t border-slate-100 dark:border-slate-400/10': i !== 0,
                             'hidden sm:table-cell sm:pr-2': preview,
